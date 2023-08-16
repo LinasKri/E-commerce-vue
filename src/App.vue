@@ -1,14 +1,21 @@
 <template>
-  <div>
-    <Navbar />
-    <RouterView />
-    <Footer />
-  </div>
+  <MainLayout>
+    <router-view />
+  </MainLayout>
 </template>
 
-<script setup>
-import Navbar from './components/layouts/Navbar.vue';
-import Footer from './components/layouts/Footer.vue';
+<script>
+import MainLayout from './components/layout/MainLayout.vue';
+
+export default {
+  components: {
+    MainLayout,
+  },
+};
 </script>
 
-<style scoped></style>
+<style lang="scss">
+body {
+  font-family: 'Arial', sans-serif;
+}
+</style>

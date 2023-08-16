@@ -1,5 +1,7 @@
 <template>
-  <div>Welcome</div>
+  <footer>
+    <p>© 2023 Your Store Name</p>
+  </footer>
 </template>
 
 <script setup></script>

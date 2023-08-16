@@ -1,7 +1,9 @@
 <template>
-  <div>
-    <div class="nav-bar"></div>
-  </div>
+  <header>
+    <nav>
+      <div class="nav-bar"></div>
+    </nav>
+  </header>
 </template>
 
 <script setup></script>
