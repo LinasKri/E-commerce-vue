@@ -1,34 +1,18 @@
 <template>
   <div>
-    <h1>Home Page</h1>
-    <ul v-if="products.length">
-      <li v-for="product in products" :key="product.id">
-        {{ product.title }}
-      </li>
-    </ul>
+    <Banner />
+    <ProductList />
   </div>
 </template>
 
 <script>
-import { ref, onMounted } from 'vue';
-import productService from '@/services/productService';
+import Banner from '../components/home/Banner.vue';
+import ProductList from '../components/home/ProductList.vue';
 
 export default {
-  setup() {
-    const products = ref([]);
-
-    onMounted(() => {
-      productService
-        .getProducts()
-        .then((response) => {
-          products.value = response.data;
-        })
-        .catch((error) => {
-          console.error('Error fetching products:', error);
-        });
-    });
-
-    return { products };
+  components: {
+    Banner,
+    ProductList,
   },
 };
 </script>
