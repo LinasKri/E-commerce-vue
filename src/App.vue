@@ -1,15 +1,19 @@
 <template>
-  <MainLayout>
-    <router-view />
-  </MainLayout>
+  <div>
+    <Header />
+    <router-view></router-view>
+    <Footer />
+  </div>
 </template>
 
 <script>
-import MainLayout from './components/layout/MainLayout.vue';
+import Header from './components/layout/Header.vue';
+import Footer from './components/layout/Footer.vue';
 
 export default {
   components: {
-    MainLayout,
+    Header,
+    Footer,
   },
 };
 </script>
