@@ -11,9 +11,10 @@
 
 <script>
 export default {
-  data() {
+  setup() {
+    const cartItems = ref({ id: 1, name: 'Product A' });
     return {
-      cartItems: [{ id: 1, name: 'Product A' }],
+      cartItems,
     };
   },
 };

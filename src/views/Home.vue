@@ -1,23 +1,34 @@
 <template>
   <div>
     <h1>Home Page</h1>
-    <ul>
+    <ul v-if="products.length">
       <li v-for="product in products" :key="product.id">
-        {{ product.name }}
+        {{ product.title }}
       </li>
     </ul>
   </div>
 </template>
 
 <script>
+import { ref, onMounted } from 'vue';
+import productService from '@/services/productService';
+
 export default {
-  data() {
-    return {
-      products: [
-        { id: 1, name: 'Product A' },
-        { id: 2, name: 'Product B' },
-      ],
-    };
+  setup() {
+    const products = ref([]);
+
+    onMounted(() => {
+      productService
+        .getProducts()
+        .then((response) => {
+          products.value = response.data;
+        })
+        .catch((error) => {
+          console.error('Error fetching products:', error);
+        });
+    });
+
+    return { products };
   },
 };
 </script>
