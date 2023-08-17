@@ -2,7 +2,7 @@
   <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container px-4 px-lg-5">
-        <a class="navbar-brand" href="#!">Shopping App</a>
+        <router-link to="/" class="navbar-brand">Shopping App</router-link>
         <button
           class="navbar-toggler"
           type="button"
@@ -30,6 +30,8 @@
                 aria-expanded="false"
                 >Shop</a
               >
+              <!-- //TODO: update navbar -->
+
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li><a class="dropdown-item" href="#!">All Products</a></li>
                 <li><hr class="dropdown-divider" /></li>
@@ -38,7 +40,16 @@
               </ul>
             </li>
           </ul>
-          <form class="d-flex">
+
+          <div v-if="authState === 'authenticated'">
+            <a class="btn btn-outline-primary me-2" @click="logout">Logout</a>
+          </div>
+          <div v-else-if="authState === 'unauthenticated'">
+            <a class="btn btn-outline-primary me-2" href="/login">Login</a>
+            <a class="btn btn-primary" href="/register">Sign Up</a>
+          </div>
+
+          <form class="d-flex ms-3">
             <button class="btn btn-outline-dark" type="submit">
               <i class="bi-cart-fill me-1"></i>
               Cart
@@ -51,4 +62,25 @@
   </header>
 </template>
 
-<script setup></script>
+<script setup>
+import { ref } from 'vue';
+import { auth } from '@/firebase/firebaseInit';
+
+const authState = ref('loading');
+
+auth.onAuthStateChanged((user) => {
+  if (user) {
+    authState.value = 'authenticated';
+  } else {
+    authState.value = 'unauthenticated';
+  }
+});
+
+const logout = async () => {
+  try {
+    await auth.signOut();
+  } catch (error) {
+    console.error('Error logging out:', error);
+  }
+};
+</script>

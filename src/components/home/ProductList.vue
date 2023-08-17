@@ -14,7 +14,13 @@
             :to="{ name: 'product-details', params: { id: product.id } }"
           >
             <div class="card h-100">
-              <!-- ... existing code ... -->
+              <!-- //TODO: make dynamic sales badge -->
+              <div
+                class="badge bg-dark text-white position-absolute"
+                style="top: 0.5rem; right: 0.5rem"
+              >
+                Sale
+              </div>
 
               <!-- Product image-->
               <div class="product-image-container">
@@ -30,6 +36,7 @@
                   <!-- Product name-->
                   <h5 class="fw-bolder text-truncate">{{ product.title }}</h5>
                   <!-- Product reviews-->
+                  <!-- //TODO: make dynamic rating stars -->
                   <div
                     class="d-flex justify-content-center small text-warning mb-2"
                   >
@@ -40,6 +47,7 @@
                     <div class="bi-star"></div>
                   </div>
                   <!-- Product price-->
+                  <!-- //TODO: make biger prices before discount -->
                   <span class="text-muted text-decoration-line-through"
                     >${{ product.price }}</span
                   >
@@ -70,9 +78,9 @@ import productService from '../../services/productService.js';
 const products = ref([]);
 const router = useRouter();
 
-const goToProductDetails = (productId) => {
-  router.push({ name: 'ProductDetails', params: { id: productId } });
-};
+// const goToProductDetails = (productId) => {
+//   router.push({ name: 'ProductDetails', params: { id: productId } });
+// };
 
 onMounted(() => {
   productService
@@ -99,14 +107,13 @@ onMounted(() => {
 }
 
 .card {
-  transition: transform 0.3s ease; /* This adds a smooth transition for the transform property */
+  transition: transform 0.3s ease;
 }
 
 .card:hover {
-  transform: scale(1.05); /* This will scale the card up by 5% when hovered */
+  transform: scale(1.05);
 }
 
-/* Optional: Add a shadow on hover for a more elevated look */
 .card:hover {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
