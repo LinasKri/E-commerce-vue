@@ -18,7 +18,9 @@
             <span class="me-2">Rating: {{ product.rating.rate }}</span>
             <span class="text-muted">({{ product.rating.count }} reviews)</span>
           </div>
-          <button class="btn btn-primary">Add to Cart</button>
+          <button @click="addToCart" class="btn btn-primary">
+            Add to Cart
+          </button>
         </div>
       </div>
     </div>
@@ -28,6 +30,7 @@
 <script>
 import { ref, onMounted } from 'vue';
 import productService from '@/services/productService';
+import * as firebase from 'firebase/app';
 
 export default {
   setup(props, { attrs }) {
@@ -45,7 +48,21 @@ export default {
         });
     });
 
-    return { product };
+    const addToCart = async (item) => {
+      const user = firebase.auth().currentUser;
+      if (user) {
+        const db = firebase.firestore();
+        const cartRef = db.collection('carts').doc(user.uid);
+        await cartRef.update({
+          items: firebase.firestore.FieldValue.arrayUnion(item),
+        });
+         //TODO: make indication that item is added to cart
+      } else {
+        //TODO: what if user is not logged in
+      }
+    };
+
+    return { product, addToCart };
   },
 };
 </script>
