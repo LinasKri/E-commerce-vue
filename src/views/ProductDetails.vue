@@ -30,7 +30,9 @@
 <script>
 import { ref, onMounted } from 'vue';
 import productService from '@/services/productService';
-import * as firebase from 'firebase/app';
+import { getAuth } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
+import { arrayUnion } from 'firebase/firestore';
 
 export default {
   setup(props, { attrs }) {
@@ -49,14 +51,14 @@ export default {
     });
 
     const addToCart = async (item) => {
-      const user = firebase.auth().currentUser;
+      const user = getAuth().currentUser;
       if (user) {
-        const db = firebase.firestore();
+        const db = getFirestore();
         const cartRef = db.collection('carts').doc(user.uid);
         await cartRef.update({
-          items: firebase.firestore.FieldValue.arrayUnion(item),
+          items: arrayUnion(item),
         });
-         //TODO: make indication that item is added to cart
+        //TODO: make indication that item is added to cart
       } else {
         //TODO: what if user is not logged in
       }
