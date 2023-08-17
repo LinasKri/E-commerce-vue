@@ -1,7 +1,27 @@
 <template>
-  <div>
-    <h1>{{ product.title }}</h1>
-    <p>{{ product.description }}</p>
+  <div v-if="product && product.rating">
+    <div class="container my-5">
+      <div class="row">
+        <div class="col-md-6">
+          <img
+            :src="product.image"
+            alt="product.title"
+            class="img-fluid rounded product-image"
+          />
+        </div>
+        <div class="col-md-6">
+          <h1 class="mb-4">{{ product.title }}</h1>
+          <p class="text-muted">{{ product.category }}</p>
+          <h3 class="mb-4">${{ product.price }}</h3>
+          <p>{{ product.description }}</p>
+          <div class="my-3">
+            <span class="me-2">Rating: {{ product.rating.rate }}</span>
+            <span class="text-muted">({{ product.rating.count }} reviews)</span>
+          </div>
+          <button class="btn btn-primary">Add to Cart</button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -29,3 +49,12 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.product-image {
+  width: 100%;
+  max-width: 400px;
+  display: block;
+  margin: 20px auto;
+}
+</style>
